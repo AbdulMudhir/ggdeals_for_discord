@@ -81,26 +81,23 @@ class GGDeals(commands.Cog):
 
     async def send_deals(self):
 
-        retrieve_log = await self.get_posted_deals()
+        posted_deals = await self.get_posted_deals()
 
-        price_sorted = {game_title:game_info for game_title, game_info in
-                        sorted(self.deals().items(), key=lambda deal: deal[1].get('price'), reverse=True)}
+        for game_title, game_info in self.deals().items():
 
-        print(price_sorted)
-        #print(price_sorted)
+            if game_title not in posted_deals:
 
-        # for game_title, game_info in self.deals().items():
-        #     print(game_info.get('platform_image'))
-        #     embed = discord.Embed(
-        #         title=game_title,
-        #         description=f" **Price:** {game_info.get('price')}\n"
-        #                     f"**Platform:** {game_info.get('platform')}\n"
-        #                     f" **Genre:** {game_info.get('genre')}",
-        #         colour=2470660,
-        #         url=game_info.get('direct_link'))
-        #     embed.set_thumbnail(url=game_info.get('game_image'))
-        #     await self.channel.send(embed=embed)
+                embed = discord.Embed(
+                    title=game_title,
+                    description=f" **Price:** {game_info.get('price')}\n"
+                                f"**Platform:** {game_info.get('platform')}\n"
+                                f" **Genre:** {game_info.get('genre')}",
+                    colour=2470660,
+                    url=game_info.get('direct_link'))
+                embed.set_thumbnail(url=game_info.get('game_image'))
+                await self.channel.send(embed=embed)
 
+        print('deals updated')
     @staticmethod
     def check_lazy_load(class_):
         # check if the image link are been hidden
@@ -110,4 +107,4 @@ class GGDeals(commands.Cog):
 if __name__ == "__main__":
     bot.add_cog(GGDeals(bot))
     bot.remove_command('help')
-    bot.run('NjAyNDM5MTM0ODA3NTg4ODg1.Xp8s_g.Ktwjkv7c-F5DyjySND9gftynsvY')
+    bot.run('NjAyNDM5MTM0ODA3NTg4ODg1.Xp9OwA.KS9E0H0lJQJXA6OxtGUkIjqhWlo')
