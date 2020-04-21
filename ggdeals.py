@@ -16,12 +16,15 @@ class GGDeals(commands.Cog):
         self.bot = bot_client
         self.token = ""
         self.link = "https://gg.deals/deals/best-deals/"
+        self.posted_deals = ''
+        self.current_deals = ''
 
     @commands.Cog.listener()
     async def on_ready(self):
         print(f'We have logged in as {self.bot.user}\n')
         self.channel = self.bot.get_channel(702208238149435533)
         await self.send_deals()
+        await self.remove_outdated_deals()
 
     def deals(self):
         deals_found = {}
@@ -80,12 +83,17 @@ class GGDeals(commands.Cog):
         return chat_logs
 
     async def send_deals(self):
+        # get the posted deals
+        self.posted_deals = await self.get_posted_deals()
+        # get the deals from the website
+        self.current_deals = self.deals()
 
-        posted_deals = await self.get_posted_deals()
+        for game_title, game_info in self.current_deals.items():
 
-        for game_title, game_info in self.deals().items():
+            if game_title not in self.posted_deals:
 
-            if game_title not in posted_deals:
+                price = game_info.get('price')
+
 
                 embed = discord.Embed(
                     title=game_title,
@@ -97,7 +105,20 @@ class GGDeals(commands.Cog):
                 embed.set_thumbnail(url=game_info.get('game_image'))
                 await self.channel.send(embed=embed)
 
-        print('deals updated')
+        # update the posted deals that have been sent across
+        self.posted_deals = await self.get_posted_deals()
+
+    async def remove_outdated_deals(self):
+
+        for post, post_id in self.posted_deals.items():
+            if post not in self.current_deals:
+                # get the mesage
+                get_message = self.channel.fetch_message(post_id)
+                # delete the message as the deal most likely expired
+                await get_message.delete()
+
+
+
     @staticmethod
     def check_lazy_load(class_):
         # check if the image link are been hidden
@@ -107,4 +128,4 @@ class GGDeals(commands.Cog):
 if __name__ == "__main__":
     bot.add_cog(GGDeals(bot))
     bot.remove_command('help')
-    bot.run('NjAyNDM5MTM0ODA3NTg4ODg1.Xp9OwA.KS9E0H0lJQJXA6OxtGUkIjqhWlo')
+    bot.run(open('token_key', 'r').read())
