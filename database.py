@@ -28,14 +28,16 @@ class DataBase(sqlite3.Connection):
                        }
 
         self.cursor.execute('''INSERT OR IGNORE INTO wish( username, user_id, game_name, notified) 
-        VALUES (:username, :user_id, :game_name,:notified)''', game_to_add)
+        VALUES (:username, :user_id, :game_name, :notified)''', game_to_add)
 
         self.commit()
 
     def view_wish_list(self, user):
         self.cursor.execute('''SELECT game_name FROM wish WHERE user_id =:user_id''', {'user_id': user.id})
-
         return self.cursor.fetchall()
 
 
-    def check_game_exist(self, user, game_title):
+    def game_exist(self, user, game_title):
+        self.cursor.execute('''SELECT game_name FROM wish WHERE user_id =:user_id AND game_name = :game_name''', {'user_id': user.id,
+                                                                                                          'game_name': game_title})
+        return self.cursor.fetchone() is not None

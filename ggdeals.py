@@ -5,7 +5,6 @@ from discord.ext import tasks
 import discord
 from database import DataBase
 
-
 header = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'}
 
@@ -82,8 +81,7 @@ class GGDeals(commands.Cog):
 
         messages = await self.channel.history(limit=50).flatten()
 
-
-        #await self.channel.delete_messages(messages)
+        # await self.channel.delete_messages(messages)
         # get the title of each embeds and the message id
         posted_deals = {message.embeds.pop().title: message.id for message in messages}
 
@@ -110,10 +108,8 @@ class GGDeals(commands.Cog):
                     price_formatted = f"{price} ({game_info.get('percentage')})"
                     colour = 2470660
                 else:
-                    price_formatted =  f"{price} ({game_info.get('percentage')})"
+                    price_formatted = f"{price} ({game_info.get('percentage')})"
                     colour = 8618883
-
-
 
                 embed = discord.Embed(
                     title=game_title,
@@ -131,21 +127,51 @@ class GGDeals(commands.Cog):
 
     @tasks.loop(hours=1)
     async def start_sending(self):
-        await self.send_deals()
-        await self.remove_outdated_deals()
+        pass
+        #await self.send_deals()
+       # await self.remove_outdated_deals()
 
     @commands.command()
     async def wish(self, ctx, *args):
 
         user = ctx.author
-        game_title = ' '.join(args)
+        game_title = ' '.join(args).strip().lower()
 
+        if self.database.game_exist(user, game_title):
+            await ctx.channel.send(f'{game_title.title()} is already on your wish list', delete_after=5)
+        else:
+            self.database.add_wish_list(user, game_title)
+            await ctx.channel.send(f'{game_title.title()} has been added to your wish list', delete_after=5)
 
-        self.database.add_wish_list(user, game_title)
 
     @commands.command()
     async def view(self, ctx):
-        print(self.database.view_wish_list(ctx.author))
+        user = ctx.author
+        users_wish_list = self.database.view_wish_list(user)
+
+        formatted_user_list = '\n'.join([f"#{number} {games[0].title()}" for number, games in enumerate(users_wish_list)])
+
+        embed = discord.Embed(
+            title=f"{user.name}#{user.discriminator}",
+            description=formatted_user_list,
+            colour=2470660,
+
+            )
+        embed.set_thumbnail(url=user.avatar_url)
+        await ctx.channel.send(embed=embed)
+
+    @commands.command()
+    async def wish(self, ctx, *args):
+
+        user = ctx.author
+        game_title = ' '.join(args).strip().lower()
+
+        if self.database.game_exist(user, game_title):
+            await ctx.channel.send(f'{game_title.title()} is already on your wish list', delete_after=5)
+        else:
+            self.database.add_wish_list(user, game_title)
+            await ctx.channel.send(f'{game_title.title()} has been added to your wish list', delete_after=5)
+
 
     async def remove_outdated_deals(self):
 
