@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup as bs4
 from discord.ext import commands
 from discord.ext import tasks
 import discord
+from database import DataBase
+
 
 header = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'}
@@ -18,6 +20,7 @@ class GGDeals(commands.Cog):
         self.link = "https://gg.deals/deals/best-deals/"
         self.posted_deals = ''
         self.current_deals = ''
+        self.database = DataBase('database.db')
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -28,7 +31,7 @@ class GGDeals(commands.Cog):
     def deals(self):
         deals_found = {}
 
-        for page_number in range(1, 2):
+        for page_number in range(1, 3):
 
             ggdeals_best_deal = requests.get(f"https://gg.deals/deals/best-deals/?page={page_number}",
                                              headers=header).content
@@ -88,7 +91,7 @@ class GGDeals(commands.Cog):
 
     async def send_deals(self):
         # get the posted deals
-        #self.posted_deals = await self.get_posted_deals()
+        self.posted_deals = await self.get_posted_deals()
         # get the deals from the website
         self.current_deals = self.deals()
 
@@ -130,6 +133,18 @@ class GGDeals(commands.Cog):
     async def start_sending(self):
         await self.send_deals()
         await self.remove_outdated_deals()
+
+    @commands.command()
+    async def wish(self, ctx, *args):
+
+        user = ctx.author
+        game_title = ' '.join(args)
+
+        print(game_title)
+
+
+        #self.database.add_wish_list(user, game)
+
 
     async def remove_outdated_deals(self):
 
