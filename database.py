@@ -36,8 +36,15 @@ class DataBase(sqlite3.Connection):
         self.cursor.execute('''SELECT game_name FROM wish WHERE user_id =:user_id''', {'user_id': user.id})
         return self.cursor.fetchall()
 
-
     def game_exist(self, user, game_title):
-        self.cursor.execute('''SELECT game_name FROM wish WHERE user_id =:user_id AND game_name = :game_name''', {'user_id': user.id,
-                                                                                                          'game_name': game_title})
+        self.cursor.execute('''SELECT game_name FROM wish WHERE user_id =:user_id AND game_name = :game_name''',
+                            {'user_id': user.id,
+                             'game_name': game_title})
         return self.cursor.fetchone() is not None
+
+    def remove_wish_list(self, user, game_name):
+        self.cursor.execute('''DELETE FROM wish WHERE user_id = :user_id AND game_name =:game_name ''',
+                            {'user_id': user.id, 'game_name': game_name})
+
+        self.commit()
+
