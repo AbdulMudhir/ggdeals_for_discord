@@ -11,7 +11,7 @@ class DataBase(sqlite3.Connection):
         self.cursor.execute('''CREATE TABLE wish(
                                 username TEXT ,
                                 user_id INTEGER ,
-                                game_name TEXT UNIQUE,
+                                game_name TEXT,
                                 notified INTEGER
                                 
                                 
@@ -32,7 +32,7 @@ class DataBase(sqlite3.Connection):
 
         self.commit()
 
-    def view_wish_list(self, user):
+    def view_user_wish_list(self, user):
         self.cursor.execute('''SELECT game_name FROM wish WHERE user_id =:user_id''', {'user_id': user.id})
         return self.cursor.fetchall()
 
@@ -48,3 +48,6 @@ class DataBase(sqlite3.Connection):
 
         self.commit()
 
+    def view_wish_list(self):
+        self.cursor.execute('SELECT game_name FROM wish ')
+        return self.cursor.fetchall()

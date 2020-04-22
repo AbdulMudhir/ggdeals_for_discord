@@ -93,42 +93,49 @@ class GGDeals(commands.Cog):
         # get the deals from the website
         self.current_deals = self.deals()
 
-        for game_title, game_info in self.current_deals.items():
+        server_wish_list = self.database.view_wish_list()
 
-            if game_title not in self.posted_deals:
+        formatted_game_list = [games[0].title() for games in server_wish_list]
 
-                price = game_info.get('price')
+        print(formatted_game_list)
+        #
+        # for game_title, game_info in self.current_deals.items():
+        #
+        #     if game_title not in self.posted_deals:
+        #
+        #         price = game_info.get('price')
+        #
+        #         if price == "Free":
+        #
+        #             price_formatted = f"{price} ({game_info.get('percentage')})"
+        #             colour = 181488
+        #         elif game_info.get('historical_low'):
+        #
+        #             price_formatted = f"{price} ({game_info.get('percentage')})"
+        #             colour = 2470660
+        #         else:
+        #             price_formatted = f"{price} ({game_info.get('percentage')})"
+        #             colour = 8618883
+        #
+        #         embed = discord.Embed(
+        #             title=game_title,
+        #             description=f" **Price:** {price_formatted}\n"
+        #                         f" **Previous Price:** {game_info.get('p_price')}\n"
+        #                         f"**Platform:** {game_info.get('platform')}\n"
+        #                         f" **Genre:** {game_info.get('genre')}",
+        #             colour=colour,
+        #             url=game_info.get('direct_link'))
+        #         embed.set_thumbnail(url=game_info.get('game_image'))
+        #         await self.channel.send(embed=embed)
+        #
+        # # update the posted deals that have been sent across
+        # self.posted_deals = await self.get_posted_deals()
 
-                if price == "Free":
 
-                    price_formatted = f"{price} ({game_info.get('percentage')})"
-                    colour = 181488
-                elif game_info.get('historical_low'):
-
-                    price_formatted = f"{price} ({game_info.get('percentage')})"
-                    colour = 2470660
-                else:
-                    price_formatted = f"{price} ({game_info.get('percentage')})"
-                    colour = 8618883
-
-                embed = discord.Embed(
-                    title=game_title,
-                    description=f" **Price:** {price_formatted}\n"
-                                f" **Previous Price:** {game_info.get('p_price')}\n"
-                                f"**Platform:** {game_info.get('platform')}\n"
-                                f" **Genre:** {game_info.get('genre')}",
-                    colour=colour,
-                    url=game_info.get('direct_link'))
-                embed.set_thumbnail(url=game_info.get('game_image'))
-                await self.channel.send(embed=embed)
-
-        # update the posted deals that have been sent across
-        self.posted_deals = await self.get_posted_deals()
 
     @tasks.loop(hours=1)
     async def start_sending(self):
-        pass
-        #await self.send_deals()
+        await self.send_deals()
        # await self.remove_outdated_deals()
 
     @commands.command()
@@ -148,7 +155,7 @@ class GGDeals(commands.Cog):
     @commands.command()
     async def view(self, ctx):
         user = ctx.author
-        users_wish_list = self.database.view_wish_list(user)
+        users_wish_list = self.database.view_user_wish_list(user)
 
         formatted_user_list = '\n'.join([f"#{number} {games[0].title()}" for number, games in enumerate(users_wish_list, start=1)])
 
@@ -168,11 +175,14 @@ class GGDeals(commands.Cog):
         game_title = ' '.join(args).strip().lower()
 
         if game_title:
+
             if self.database.game_exist(user, game_title):
                 self.database.remove_wish_list(user, game_title)
                 await ctx.channel.send(f'{game_title.title()} has been removed from your wish list', delete_after=5)
             else:
                 await ctx.channel.send(f'{game_title.title()} does not exist in your wish list', delete_after=5)
+
+
 
 
     async def remove_outdated_deals(self):
