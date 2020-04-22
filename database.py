@@ -51,3 +51,11 @@ class DataBase(sqlite3.Connection):
     def view_wish_list(self):
         self.cursor.execute('SELECT DISTINCT game_name FROM wish ')
         return self.cursor.fetchall()
+
+    def get_user_with_game_list(self, game_title):
+        self.cursor.execute('''SELECT user_id FROM wish WHERE game_name =:game_name and notified =0''', {'game_name': game_title})
+        return self.cursor.fetchall()
+
+    def set_user_notified_for_game(self, user, game_title):
+        self.cursor.execute('''UPDATE wish SET notified = 1 WHERE user_id =:user_id AND game_name = :game_name''',{'user_id': user.id,'game_name': game_title})
+        self.commit()
