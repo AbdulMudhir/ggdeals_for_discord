@@ -47,8 +47,8 @@ class GGDeals(commands.Cog):
                 deal_posted_date = deal.find_next('div', class_='time-tag').span.text
                 genre = deal.find_next('div', class_='tag- ellipsis tag with-bull').span.text
                 percentage = deal.find_next('span', class_="discount-badge badge").text
+                # check if this is the lowest deal
                 historical = "Historical low" in str(deal)
-
 
                 # get img tag from the html to check if  links are in the right attributes
                 image_class = deal.find_next('a', class_="main-image").img.get('class')
@@ -70,13 +70,17 @@ class GGDeals(commands.Cog):
                                       'platform_image': platform_image,
                                       'date_posted': deal_posted_date,
                                       'genre': genre,
-                                      'percentage':percentage}
+                                      'percentage': percentage,
+                                      'historical_low': historical}
 
         return deals_found
 
     async def get_posted_deals(self):
 
         messages = await self.channel.history(limit=50).flatten()
+
+
+        #await self.channel.delete_messages(messages)
         # get the title of each embeds and the message id
         posted_deals = {message.embeds.pop().title: message.id for message in messages}
 
@@ -84,28 +88,40 @@ class GGDeals(commands.Cog):
 
     async def send_deals(self):
         # get the posted deals
-        self.posted_deals = await self.get_posted_deals()
+        #self.posted_deals = await self.get_posted_deals()
         # get the deals from the website
         self.current_deals = self.deals()
 
         for game_title, game_info in self.current_deals.items():
-            pass
 
-            # if game_title not in self.posted_deals:
-            #     price = game_info.get('price')
-            #
-            #     price_formatted = f'```yaml\n{price}```' if price == "Free" else price
-            #
-            #     embed = discord.Embed(
-            #         title=game_title,
-            #         description=f" **Price:** {price_formatted}\n"
-            #                     f" **Previous Price:** {game_info.get('p_price')}\n"
-            #                     f"**Platform:** {game_info.get('platform')}\n"
-            #                     f" **Genre:** {game_info.get('genre')}",
-            #         colour=2470660,
-            #         url=game_info.get('direct_link'))
-            #     embed.set_thumbnail(url=game_info.get('game_image'))
-            #     await self.channel.send(embed=embed)
+            if game_title not in self.posted_deals:
+
+                price = game_info.get('price')
+
+                if price == "Free":
+
+                    price_formatted = f"{price} ({game_info.get('percentage')})"
+                    colour = 181488
+                elif game_info.get('historical_low'):
+
+                    price_formatted = f"{price} ({game_info.get('percentage')})"
+                    colour = 2470660
+                else:
+                    price_formatted =  f"{price} ({game_info.get('percentage')})"
+                    colour = 8618883
+
+
+
+                embed = discord.Embed(
+                    title=game_title,
+                    description=f" **Price:** {price_formatted}\n"
+                                f" **Previous Price:** {game_info.get('p_price')}\n"
+                                f"**Platform:** {game_info.get('platform')}\n"
+                                f" **Genre:** {game_info.get('genre')}",
+                    colour=colour,
+                    url=game_info.get('direct_link'))
+                embed.set_thumbnail(url=game_info.get('game_image'))
+                await self.channel.send(embed=embed)
 
         # update the posted deals that have been sent across
         self.posted_deals = await self.get_posted_deals()
