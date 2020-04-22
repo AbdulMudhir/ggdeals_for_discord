@@ -49,5 +49,5 @@ class DataBase(sqlite3.Connection):
         self.commit()
 
     def view_wish_list(self):
-        self.cursor.execute('SELECT game_name FROM wish ')
+        self.cursor.execute('SELECT DISTINCT game_name FROM wish ')
         return self.cursor.fetchall()
