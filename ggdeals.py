@@ -140,11 +140,12 @@ class GGDeals(commands.Cog):
         user = ctx.author
         game_title = ' '.join(args)
 
-        print(game_title)
 
+        self.database.add_wish_list(user, game_title)
 
-        #self.database.add_wish_list(user, game)
-
+    @commands.command()
+    async def view(self, ctx):
+        print(self.database.view_wish_list(ctx.author))
 
     async def remove_outdated_deals(self):
 
