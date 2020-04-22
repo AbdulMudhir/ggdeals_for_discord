@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="08789ef2-db12-4791-8b5f-61b1fee97c0c" name="Default Changelist" comment="">
+    <list default="true" id="08789ef2-db12-4791-8b5f-61b1fee97c0c" name="Default Changelist" comment="delete outdated deals">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ggdeals.py" beforeDir="false" afterPath="$PROJECT_DIR$/ggdeals.py" afterDir="false" />
     </list>
@@ -105,59 +105,83 @@
       <option name="project" value="LOCAL" />
       <updated>1587504397954</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="delete outdated deals">
+      <created>1587505833908</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1587505833908</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="capture deals" />
     <MESSAGE value="sorting price based on free" />
     <MESSAGE value=" added functionality to check if a deal was already psoted" />
-    <option name="LAST_COMMIT_MESSAGE" value=" added functionality to check if a deal was already psoted" />
+    <MESSAGE value="delete outdated deals" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete outdated deals" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1055" y="504" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587504445908">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1055" y="504" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587504445908" />
-    <state x="934" y="295" key="CommitChangelistDialog2" timestamp="1587504397278">
+    <state x="934" y="295" key="CommitChangelistDialog2" timestamp="1587507636647">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="934" y="295" key="CommitChangelistDialog2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587504397278" />
-    <state width="2539" height="378" key="GridCell.Tab.0.bottom" timestamp="1587505807673">
+    <state x="934" y="295" key="CommitChangelistDialog2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587507636647" />
+    <state width="2539" height="297" key="GridCell.Tab.0.bottom" timestamp="1587562428115">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="378" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587505807673" />
+    <state width="2539" height="297" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587562428115" />
     <state width="1419" height="378" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
-    <state width="2539" height="378" key="GridCell.Tab.0.center" timestamp="1587505807673">
+    <state width="2539" height="297" key="GridCell.Tab.0.center" timestamp="1587562428115">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="378" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587505807673" />
+    <state width="2539" height="297" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587562428115" />
     <state width="1419" height="378" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
-    <state width="2539" height="378" key="GridCell.Tab.0.left" timestamp="1587505807672">
+    <state width="2539" height="297" key="GridCell.Tab.0.left" timestamp="1587562428115">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="378" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587505807672" />
+    <state width="2539" height="297" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587562428115" />
     <state width="1419" height="378" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
-    <state width="2539" height="378" key="GridCell.Tab.0.right" timestamp="1587505807673">
+    <state width="2539" height="297" key="GridCell.Tab.0.right" timestamp="1587562428115">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="378" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587505807673" />
+    <state width="2539" height="297" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587562428115" />
     <state width="1419" height="378" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
+    <state width="2539" height="492" key="GridCell.Tab.1.bottom" timestamp="1587559401034">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2539" height="492" key="GridCell.Tab.1.bottom/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587559401034" />
+    <state width="2539" height="492" key="GridCell.Tab.1.center" timestamp="1587559401033">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2539" height="492" key="GridCell.Tab.1.center/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587559401033" />
+    <state width="2539" height="492" key="GridCell.Tab.1.left" timestamp="1587559401033">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2539" height="492" key="GridCell.Tab.1.left/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587559401033" />
+    <state width="2539" height="492" key="GridCell.Tab.1.right" timestamp="1587559401034">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2539" height="492" key="GridCell.Tab.1.right/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587559401034" />
     <state x="2781" y="73" key="SettingsEditor" timestamp="1587476437419">
       <screen x="2560" y="0" width="1440" height="860" />
     </state>
     <state x="2781" y="73" key="SettingsEditor/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587476437419" />
-    <state x="872" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587504399458">
+    <state x="872" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587505835098">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587504399458" />
+    <state x="872" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587505835098" />
     <state x="2560" y="0" width="1456" height="867" maximized="true" key="dock-window-1" timestamp="1587490861999">
       <screen x="2560" y="0" width="1440" height="860" />
     </state>
     <state x="2560" y="0" width="1456" height="867" maximized="true" key="dock-window-1/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587490861999" />
-    <state x="2560" y="0" width="1456" height="945" key="dock-window-2" timestamp="1587494233102">
-      <screen x="2560" y="0" width="1440" height="860" />
+    <state x="-8" y="-8" width="2576" height="1456" key="dock-window-2" timestamp="1587559987369">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="2560" y="0" width="1456" height="945" key="dock-window-2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587494233102" />
+    <state x="-8" y="-8" width="2576" height="1456" key="dock-window-2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587559987369" />
   </component>
 </project>
