@@ -31,7 +31,7 @@ class GGDeals(commands.Cog):
     def deals(self):
         deals_found = {}
 
-        for page_number in range(1, 2):
+        for page_number in range(1, 3):
 
             ggdeals_best_deal = requests.get(f"https://gg.deals/deals/best-deals/?page={page_number}",
                                              headers=header).content
@@ -102,8 +102,11 @@ class GGDeals(commands.Cog):
 
                 formatted_game_list = [games[0] for games in server_wish_list]
 
-                if game_title.lower() in formatted_game_list:
-                    await self.send_users_wish_list(game_title.lower(), game_info)
+                wish_deal_found = ' '.join([game for game in formatted_game_list if game in game_title.lower()])
+
+                if wish_deal_found:
+                    await self.send_users_wish_list(wish_list_game=wish_deal_found, game_info=game_info,
+                                                    game_title=game_title)
 
                 price = game_info.get('price')
                 percentage = game_info.get('percentage')
@@ -122,10 +125,10 @@ class GGDeals(commands.Cog):
 
                 embed = discord.Embed(
                     title=game_title,
-                    description=f" **Price:** {price_formatted}\n"
-                                f" **Previous Price:** {game_info.get('p_price')}\n"
+                    description=f"**Price:** {price_formatted}\n"
+                                f"**Previous Price:** {game_info.get('p_price')}\n"
                                 f"**Platform:** {game_info.get('platform')}\n"
-                                f" **Genre:** {game_info.get('genre')}",
+                                f"**Genre:** {game_info.get('genre')}",
                     colour=colour,
                     url=game_info.get('direct_link'))
                 embed.set_thumbnail(url=game_info.get('game_image'))
@@ -138,11 +141,11 @@ class GGDeals(commands.Cog):
     async def start_sending(self):
         await self.send_deals()
 
-    # await self.remove_outdated_deals()
+        await self.remove_outdated_deals()
 
-    async def send_users_wish_list(self, game_title, game_info):
+    async def send_users_wish_list(self, game_title, game_info, wish_list_game):
 
-        user_with_game_list = self.database.get_user_with_game_list(game_title)
+        user_with_game_list = self.database.get_user_with_game_list(wish_list_game)
         formatted_user_list = [user_id[0] for user_id in user_with_game_list]
 
         for user_id in formatted_user_list:
@@ -174,7 +177,8 @@ class GGDeals(commands.Cog):
 
             embed.set_thumbnail(url=game_info.get('game_image'))
 
-            await self.server_bot_channel.send(f"{user.mention} {game_title.title()} was from your  wish list", embed=embed)
+            await self.server_bot_channel.send(f"{user.mention} {game_title.title()} was from your  wish list",
+                                               embed=embed)
 
     @commands.command()
     async def wish(self, ctx, *args):
@@ -187,7 +191,7 @@ class GGDeals(commands.Cog):
                 await ctx.channel.send(f'{game_title.title()} is already on your wish list', delete_after=5)
             else:
                 self.database.add_wish_list(user, game_title)
-                await ctx.channel.send(f'{game_title.title()} has been added to your wish list', delete_after=5)
+                await ctx.channel.send(f'{game_title.title()} has been added to your wish list')
 
     @commands.command()
     async def view(self, ctx):
@@ -216,7 +220,7 @@ class GGDeals(commands.Cog):
 
             if self.database.game_exist(user, game_title):
                 self.database.remove_wish_list(user, game_title)
-                await ctx.channel.send(f'{game_title.title()} has been removed from your wish list', delete_after=5)
+                await ctx.channel.send(f'{game_title.title()} has been removed from your wish list')
             else:
                 await ctx.channel.send(f'{game_title.title()} does not exist in your wish list', delete_after=5)
 
