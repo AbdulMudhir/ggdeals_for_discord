@@ -87,3 +87,7 @@ class DataBase(sqlite3.Connection):
     def set_user_notified_for_game(self, user, game_title):
         self.cursor.execute('''UPDATE wish SET notified = 1 WHERE user_id =:user_id AND game_name = :game_name''',{'user_id': user.id,'game_name': game_title})
         self.commit()
+
+    def get_full_game_detail(self, game_name):
+        self.cursor.execute('SELECT * FROM game WHERE game_title =:game_name ', {'game_name': game_name})
+        return self.cursor.fetchone()

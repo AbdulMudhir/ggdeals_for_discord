@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="08789ef2-db12-4791-8b5f-61b1fee97c0c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ggdeals.py" beforeDir="false" afterPath="$PROJECT_DIR$/ggdeals.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -225,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587646199713</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="get youtube links for the games">
+      <created>1587665037722</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1587665037722</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -246,7 +254,8 @@
     <MESSAGE value="added functionality to check for key words in the title" />
     <MESSAGE value="added functionality to search for games on gg.deals" />
     <MESSAGE value="keep tracks of games on the database" />
-    <option name="LAST_COMMIT_MESSAGE" value="keep tracks of games on the database" />
+    <MESSAGE value="get youtube links for the games" />
+    <option name="LAST_COMMIT_MESSAGE" value="get youtube links for the games" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1055" y="504" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587504445908">
@@ -257,29 +266,29 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1121" y="608" key="#com.jetbrains.python.refactoring.move.PyMakeFunctionTopLevelDialog/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587573798292" />
-    <state x="934" y="295" key="CommitChangelistDialog2" timestamp="1587646199029">
+    <state x="934" y="295" key="CommitChangelistDialog2" timestamp="1587665036943">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="934" y="295" key="CommitChangelistDialog2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587646199029" />
-    <state width="2539" height="476" key="GridCell.Tab.0.bottom" timestamp="1587664757130">
+    <state x="934" y="295" key="CommitChangelistDialog2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587665036943" />
+    <state width="2539" height="174" key="GridCell.Tab.0.bottom" timestamp="1587671760078">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="476" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587664757130" />
+    <state width="2539" height="174" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587671760078" />
     <state width="1419" height="378" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
-    <state width="2539" height="476" key="GridCell.Tab.0.center" timestamp="1587664757130">
+    <state width="2539" height="174" key="GridCell.Tab.0.center" timestamp="1587671760078">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="476" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587664757130" />
+    <state width="2539" height="174" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587671760078" />
     <state width="1419" height="378" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
-    <state width="2539" height="476" key="GridCell.Tab.0.left" timestamp="1587664757130">
+    <state width="2539" height="174" key="GridCell.Tab.0.left" timestamp="1587671760078">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="476" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587664757130" />
+    <state width="2539" height="174" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587671760078" />
     <state width="1419" height="378" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
-    <state width="2539" height="476" key="GridCell.Tab.0.right" timestamp="1587664757130">
+    <state width="2539" height="174" key="GridCell.Tab.0.right" timestamp="1587671760078">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="476" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587664757130" />
+    <state width="2539" height="174" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587671760078" />
     <state width="1419" height="378" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
     <state width="2539" height="492" key="GridCell.Tab.1.bottom" timestamp="1587559401034">
       <screen x="0" y="0" width="2560" height="1400" />
@@ -301,10 +310,10 @@
       <screen x="2560" y="0" width="1440" height="860" />
     </state>
     <state x="2781" y="73" key="SettingsEditor/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587476437419" />
-    <state x="872" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587646200814">
+    <state x="872" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587665039690">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587646200814" />
+    <state x="872" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587665039690" />
     <state x="2560" y="0" width="1456" height="867" maximized="true" key="dock-window-1" timestamp="1587490861999">
       <screen x="2560" y="0" width="1440" height="860" />
     </state>

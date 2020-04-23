@@ -139,9 +139,9 @@ class GGDeals(commands.Cog):
 
     @tasks.loop(hours=1)
     async def start_sending(self):
-        pass
-        # await self.send_deals()
-        # await self.remove_outdated_deals()
+
+        await self.send_deals()
+        await self.remove_outdated_deals()
 
     async def send_users_wish_list(self, game_title, game_info, wish_list_game):
 
@@ -245,7 +245,8 @@ class GGDeals(commands.Cog):
                 game_exist = self.database.get_game(game_name.lower())
 
                 if game_exist:
-                    await self.send_game_from_database()
+                    print(game_title)
+                    await self.send_game_from_database(ctx, game_name.lower())
 
                 else:
 
@@ -257,8 +258,7 @@ class GGDeals(commands.Cog):
 
                     historical = "Historical low" in str(game_card)
 
-                    youtube_search_query ='+'.join(game_name.split()) +'+first+look'
-
+                    youtube_search_query = '+'.join(game_name.split()) + '+first+look'
 
                     url = f'https://www.youtube.com/results?search_query={youtube_search_query}'
 
@@ -274,15 +274,58 @@ class GGDeals(commands.Cog):
                                  'historical': historical,
                                  'genre': genre,
                                  'video_link': video_link
-
                                  }
                     # add the game to database to track
                     self.database.add_game(game_data)
 
-                    #print(current_price, direct_link, historical, genre, game_name, game_picture, video_link)
+                    if current_price == "Free":
+                        price_formatted = current_price
+                        colour = 181488
+                    elif historical:
+                        price_formatted = current_price
+                        colour = 2470660
+                    else:
+                        price_formatted = current_price
+                        colour = 8618883
 
-    async def send_game_from_database(self):
-        pass
+                    embed = discord.Embed(
+                        title=game_name.title(),
+                        description=f"**Price:** {current_price}\n"
+                                    f"**Genre:** {genre}\n"
+                                    f"**Gameplay:** {video_link}\n",
+                        colour=colour,
+                        url=direct_link)
+                    embed.set_thumbnail(url=game_picture)
+
+                    await ctx.channel.send(embed=embed)
+
+                    # print(current_price, direct_link, historical, genre, game_name, game_picture, video_link)
+
+    async def send_game_from_database(self, ctx, game_title):
+        game_name, current_price, game_picture,direct_link,historical,\
+            genre, video_link= self.database.get_full_game_detail(game_title)
+
+        if current_price == "Free":
+            price_formatted = current_price
+            colour = 181488
+        elif historical:
+            price_formatted = current_price
+            colour = 2470660
+        else:
+            price_formatted = current_price
+            colour = 8618883
+
+        embed = discord.Embed(
+            title=game_name.title(),
+            description=f"**Price:** {current_price}\n"
+                        f"**Genre:** {genre}\n"
+                        f"**Gameplay:** {video_link}\n",
+            colour=colour,
+            url=direct_link)
+        embed.set_thumbnail(url=game_picture)
+
+        await ctx.channel.send(embed=embed)
+
 
     async def remove_outdated_deals(self):
 
