@@ -82,7 +82,7 @@ class GGDeals(commands.Cog):
 
         messages = await self.channel.history(limit=50).flatten()
 
-        #await self.channel.delete_messages(messages)
+        # await self.channel.delete_messages(messages)
         # get the title of each embeds and the message id
         posted_deals = {message.embeds.pop().title: message.id for message in messages}
 
@@ -139,9 +139,9 @@ class GGDeals(commands.Cog):
 
     @tasks.loop(hours=1)
     async def start_sending(self):
-        await self.send_deals()
-
-        await self.remove_outdated_deals()
+        pass
+        # await self.send_deals()
+        # await self.remove_outdated_deals()
 
     async def send_users_wish_list(self, game_title, game_info, wish_list_game):
 
@@ -223,6 +223,30 @@ class GGDeals(commands.Cog):
                 await ctx.channel.send(f'{game_title.title()} has been removed from your wish list')
             else:
                 await ctx.channel.send(f'{game_title.title()} does not exist in your wish list', delete_after=5)
+
+    @commands.command()
+    async def search(self, ctx, *args):
+
+        game_title = '+'.join(args)
+
+        if args:
+            ggdeals_best_deal = requests.get(f"https://gg.deals/games/?title={game_title}", headers=header).content
+            soup = bs4(ggdeals_best_deal, 'html.parser')
+
+            game_card = soup.find('div', class_='with-badges')
+
+            game_name = game_card.find_next('a', class_='ellipsis title').text
+            game_picture = game_card.find_next('img').get('src')
+
+            current_price = game_card.find_next('span', class_="numeric").text
+            direct_link = f"https://gg.deals{game_card.find_next('a', class_='ellipsis title').get('href')}"
+            tag = game_card.find_next('div', class_="tag-tags")
+            genre = tag.find_next('span', class_='value').span.get('title')
+            historical = "Historical low" in str(game_card)
+
+            print(current_price, direct_link,  historical, test, game_name, game_picture)
+
+
 
     async def remove_outdated_deals(self):
 
