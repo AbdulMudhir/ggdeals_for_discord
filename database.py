@@ -91,3 +91,7 @@ class DataBase(sqlite3.Connection):
     def get_full_game_detail(self, game_name):
         self.cursor.execute('SELECT * FROM game WHERE game_title =:game_name ', {'game_name': game_name})
         return self.cursor.fetchone()
+
+    def get_video_url(self, game_name):
+        self.cursor.execute('SELECT video_link FROM game WHERE game_title =:game_name ', {'game_name': game_name})
+        return self.cursor.fetchone()

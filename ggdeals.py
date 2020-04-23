@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord.ext import tasks
 import discord, re
 from database import DataBase
+from reaction_page import Reactions
 
 header = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'}
@@ -245,7 +246,6 @@ class GGDeals(commands.Cog):
                 game_exist = self.database.get_game(game_name.lower())
 
                 if game_exist:
-                    print(game_title)
                     await self.send_game_from_database(ctx, game_name.lower())
 
                 else:
@@ -297,13 +297,12 @@ class GGDeals(commands.Cog):
                         url=direct_link)
                     embed.set_thumbnail(url=game_picture)
 
-                    await ctx.channel.send(embed=embed)
-
-                    # print(current_price, direct_link, historical, genre, game_name, game_picture, video_link)
+                    message = await ctx.channel.send(embed=embed)
+                    message.add_reaction('\N{THUMBS UP SIGN}')
 
     async def send_game_from_database(self, ctx, game_title):
-        game_name, current_price, game_picture,direct_link,historical,\
-            genre, video_link= self.database.get_full_game_detail(game_title)
+        game_name, current_price, game_picture, direct_link, historical, \
+        genre, video_link = self.database.get_full_game_detail(game_title)
 
         if current_price == "Free":
             price_formatted = current_price
@@ -324,8 +323,8 @@ class GGDeals(commands.Cog):
             url=direct_link)
         embed.set_thumbnail(url=game_picture)
 
-        await ctx.channel.send(embed=embed)
-
+        message = await ctx.channel.send(embed=embed)
+        emojis = [await message.add_reaction(emoji) for emoji in [ '▶','📖', '❌', '🗑']]
 
     async def remove_outdated_deals(self):
 
@@ -348,5 +347,6 @@ class GGDeals(commands.Cog):
 
 if __name__ == "__main__":
     bot.add_cog(GGDeals(bot))
+    bot.add_cog(Reactions(bot))
     bot.remove_command('help')
     bot.run(open('token_key', 'r').read())
