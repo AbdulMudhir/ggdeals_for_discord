@@ -227,27 +227,55 @@ class GGDeals(commands.Cog):
     @commands.command()
     async def search(self, ctx, *args):
 
-        game_title = '+'.join(args)
+        game_title_url = '+'.join(args)
+        game_title  = ' '.join(args)
 
         if args:
-            ggdeals_best_deal = requests.get(f"https://gg.deals/games/?title={game_title}", headers=header).content
+            ggdeals_best_deal = requests.get(f"https://gg.deals/games/?title={game_title_url}", headers=header).content
             soup = bs4(ggdeals_best_deal, 'html.parser')
 
-            game_card = soup.find('div', class_='with-badges')
+            game_not_found = soup.find('span', class_='emoji emoji-screaming')
 
-            game_name = game_card.find_next('a', class_='ellipsis title').text
-            game_picture = game_card.find_next('img').get('src')
+            if game_not_found is not None:
+                await ctx.channel.send(f'{game_title.title()} does not exist')
 
-            current_price = game_card.find_next('span', class_="numeric").text
-            direct_link = f"https://gg.deals{game_card.find_next('a', class_='ellipsis title').get('href')}"
-            tag = game_card.find_next('div', class_="tag-tags")
-            genre = tag.find_next('span', class_='value').span.get('title')
-            historical = "Historical low" in str(game_card)
+            else:
+                    game_card = soup.find('div', class_='with-badges')
+                    game_name = game_card.find_next('a', class_='ellipsis title').text
 
-            print(current_price, direct_link,  historical, test, game_name, game_picture)
+                    game_exist = self.database.get_game(game_name.lower())
+
+                    if game_exist:
+                        await self.send_game_from_database()
+
+                    else:
+
+                        game_picture = game_card.find_next('img').get('src')
+                        current_price = game_card.find_next('span', class_="numeric").text
+                        direct_link = f"https://gg.deals{game_card.find_next('a', class_='ellipsis title').get('href')}"
+                        tag = game_card.find_next('div', class_="tag-tags")
+                        genre = tag.find_next('span', class_='value').span.get('title')
+                        historical = "Historical low" in str(game_card)
 
 
+                        game_data = {'game_name': game_name.lower(),
+                                     'game_picture': game_picture,
+                                     'game_price': current_price,
+                                     'direct_link': direct_link,
+                                     'historical': historical,
+                                     'genre': genre,
+                                     'video_link': None
 
+                         }
+
+                        # add the game to database to track
+                        self.database.add_game(game_data)
+
+
+                        print(current_price, direct_link, historical, genre, game_name, game_picture)
+
+    async def send_game_from_database(self):
+        pass
     async def remove_outdated_deals(self):
 
         for post, post_id in self.posted_deals.items():

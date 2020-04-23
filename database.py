@@ -20,6 +20,23 @@ class DataBase(sqlite3.Connection):
 
         self.commit()
 
+    def create_game_table(self):
+        self.cursor.execute('''CREATE TABLE game(
+        
+                                game_title TEXT UNIQUE,
+                                game_price TEXT,
+                                game_image TEXT,
+                                direct_link TEXT,
+                                historical TEXT,
+                                genre TEXT,
+                                video_link TEXT   
+
+
+
+                                )''')
+
+        self.commit()
+
     def add_wish_list(self, user, game_name):
         game_to_add = {'username': user.name,
                        'user_id': user.id,
@@ -51,6 +68,17 @@ class DataBase(sqlite3.Connection):
     def view_wish_list(self):
         self.cursor.execute('SELECT DISTINCT game_name FROM wish ')
         return self.cursor.fetchall()
+
+    def get_game(self, game_name):
+        self.cursor.execute('SELECT game_title FROM game WHERE game_title =:game_name ', {'game_name' : game_name})
+        return self.cursor.fetchone()
+
+    def add_game(self, kwarg):
+        self.cursor.execute('''INSERT OR IGNORE INTO game(game_title,game_price, game_image, direct_link, historical,
+        genre, video_link) VALUES (:game_name, :game_price, :game_picture, :direct_link, :historical, :genre, :video_link)''', kwarg)
+
+        self.commit()
+
 
     def get_user_with_game_list(self, game_title):
         self.cursor.execute('''SELECT user_id FROM wish WHERE game_name =:game_name and notified =0''', {'game_name': game_title})
