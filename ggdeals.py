@@ -83,7 +83,7 @@ class GGDeals(commands.Cog):
 
         messages = await self.channel.history(limit=50).flatten()
 
-        # await self.channel.delete_messages(messages)
+        #await self.channel.delete_messages(messages)
         # get the title of each embeds and the message id
         posted_deals = {message.embeds.pop().title: message.id for message in messages}
 
@@ -113,9 +113,25 @@ class GGDeals(commands.Cog):
                 percentage = game_info.get('percentage')
 
                 if price == "Free":
-
                     price_formatted = f"{price} ({percentage})"
                     colour = 181488
+                    guild = self.bot.get_guild(498590221802274826)
+                    free_game_role = guild.get_role(702993915019657408)
+
+                    embed = discord.Embed(
+                        title=game_title,
+                        description=f"**Price:** {price_formatted}\n"
+                                    f"**Previous Price:** {game_info.get('p_price')}\n"
+                                    f"**Platform:** {game_info.get('platform')}\n"
+                                    f"**Genre:** {game_info.get('genre')}",
+                        colour=colour,
+                        url=game_info.get('direct_link'))
+                    embed.set_thumbnail(url=game_info.get('game_image'))
+
+                    await self.channel.send(free_game_role.mention, embed=embed)
+
+                    continue
+
                 elif game_info.get('historical_low'):
 
                     price_formatted = f"{price} ({percentage})"
@@ -133,6 +149,7 @@ class GGDeals(commands.Cog):
                     colour=colour,
                     url=game_info.get('direct_link'))
                 embed.set_thumbnail(url=game_info.get('game_image'))
+
                 await self.channel.send(embed=embed)
 
         # update the posted deals that have been sent across
@@ -159,6 +176,7 @@ class GGDeals(commands.Cog):
             if price == "Free":
                 price_formatted = f"{price} ({percentage})"
                 colour = 181488
+
             elif game_info.get('historical_low'):
 
                 price_formatted = f"{price} ({percentage})"
@@ -291,14 +309,13 @@ class GGDeals(commands.Cog):
                     embed = discord.Embed(
                         title=game_name.title(),
                         description=f"**Price:** {current_price}\n"
-                                    f"**Genre:** {genre}\n"
-                                    f"**Gameplay:** {video_link}\n",
+                                    f"**Genre:** {genre}\n",
                         colour=colour,
                         url=direct_link)
                     embed.set_thumbnail(url=game_picture)
 
                     message = await ctx.channel.send(embed=embed)
-                    message.add_reaction('\N{THUMBS UP SIGN}')
+                    emojis = [await message.add_reaction(emoji) for emoji in ['▶', '📖', '❌', '🗑']]
 
     async def send_game_from_database(self, ctx, game_title):
         game_name, current_price, game_picture, direct_link, historical, \
@@ -317,14 +334,13 @@ class GGDeals(commands.Cog):
         embed = discord.Embed(
             title=game_name.title(),
             description=f"**Price:** {current_price}\n"
-                        f"**Genre:** {genre}\n"
-                        f"**Gameplay:** {video_link}\n",
+                        f"**Genre:** {genre}\n",
             colour=colour,
             url=direct_link)
         embed.set_thumbnail(url=game_picture)
 
         message = await ctx.channel.send(embed=embed)
-        emojis = [await message.add_reaction(emoji) for emoji in [ '▶','📖', '❌', '🗑']]
+        emojis = [await message.add_reaction(emoji) for emoji in ['▶', '📖', '❌', '🗑']]
 
     async def remove_outdated_deals(self):
 

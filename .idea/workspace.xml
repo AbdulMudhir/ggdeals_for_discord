@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="08789ef2-db12-4791-8b5f-61b1fee97c0c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ggdeals.py" beforeDir="false" afterPath="$PROJECT_DIR$/ggdeals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reaction_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/reaction_page.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587671839445</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="added reaction">
+      <created>1587676572563</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1587676572563</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -285,7 +292,8 @@
     <MESSAGE value="keep tracks of games on the database" />
     <MESSAGE value="get youtube links for the games" />
     <MESSAGE value="games updated on to database" />
-    <option name="LAST_COMMIT_MESSAGE" value="games updated on to database" />
+    <MESSAGE value="added reaction" />
+    <option name="LAST_COMMIT_MESSAGE" value="added reaction" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1055" y="504" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587504445908">
@@ -296,29 +304,29 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1121" y="608" key="#com.jetbrains.python.refactoring.move.PyMakeFunctionTopLevelDialog/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587573798292" />
-    <state x="934" y="295" key="CommitChangelistDialog2" timestamp="1587671838628">
+    <state x="934" y="295" key="CommitChangelistDialog2" timestamp="1587676571934">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="934" y="295" key="CommitChangelistDialog2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587671838628" />
-    <state width="2539" height="174" key="GridCell.Tab.0.bottom" timestamp="1587676555594">
+    <state x="934" y="295" key="CommitChangelistDialog2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587676571934" />
+    <state width="2539" height="230" key="GridCell.Tab.0.bottom" timestamp="1587679700551">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="174" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587676555594" />
+    <state width="2539" height="230" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587679700551" />
     <state width="1419" height="378" key="GridCell.Tab.0.bottom/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
-    <state width="2539" height="174" key="GridCell.Tab.0.center" timestamp="1587676555593">
+    <state width="2539" height="230" key="GridCell.Tab.0.center" timestamp="1587679700551">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="174" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587676555593" />
+    <state width="2539" height="230" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587679700551" />
     <state width="1419" height="378" key="GridCell.Tab.0.center/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
-    <state width="2539" height="174" key="GridCell.Tab.0.left" timestamp="1587676555593">
+    <state width="2539" height="230" key="GridCell.Tab.0.left" timestamp="1587679700551">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="174" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587676555593" />
+    <state width="2539" height="230" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587679700551" />
     <state width="1419" height="378" key="GridCell.Tab.0.left/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
-    <state width="2539" height="174" key="GridCell.Tab.0.right" timestamp="1587676555594">
+    <state width="2539" height="230" key="GridCell.Tab.0.right" timestamp="1587679700551">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2539" height="174" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587676555594" />
+    <state width="2539" height="230" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587679700551" />
     <state width="1419" height="378" key="GridCell.Tab.0.right/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587488231073" />
     <state width="2539" height="492" key="GridCell.Tab.1.bottom" timestamp="1587559401034">
       <screen x="0" y="0" width="2560" height="1400" />
@@ -340,10 +348,10 @@
       <screen x="2560" y="0" width="1440" height="860" />
     </state>
     <state x="2781" y="73" key="SettingsEditor/0.0.2560.1400/2560.0.1440.860@2560.0.1440.860" timestamp="1587476437419" />
-    <state x="872" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587671841010">
+    <state x="872" y="434" key="Vcs.Push.Dialog.v2" timestamp="1587676573380">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587671841010" />
+    <state x="872" y="434" key="Vcs.Push.Dialog.v2/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587676573380" />
     <state x="2560" y="0" width="1456" height="867" maximized="true" key="dock-window-1" timestamp="1587490861999">
       <screen x="2560" y="0" width="1440" height="860" />
     </state>
@@ -356,5 +364,16 @@
       <screen x="2560" y="0" width="1440" height="860" />
     </state>
     <state x="2560" y="0" width="1456" height="945" key="dock-window-3/0.0.2560.1400/2560.0.1440.860@0.0.2560.1400" timestamp="1587645422161" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/reaction_page.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
