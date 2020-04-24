@@ -16,7 +16,6 @@ class GGDeals(commands.Cog):
 
     def __init__(self, bot_client):
         self.bot = bot_client
-        self.token = ""
         self.link = "https://gg.deals/deals/best-deals/"
         self.posted_deals = ''
         self.current_deals = ''
