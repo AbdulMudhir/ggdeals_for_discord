@@ -29,6 +29,8 @@ class GGDeals(commands.Cog):
         self.server_bot_channel = self.bot.get_channel(557662591942524930)
         self.start_sending.start()
 
+
+
     def deals(self):
         deals_found = {}
 
@@ -90,6 +92,8 @@ class GGDeals(commands.Cog):
         return posted_deals
 
     async def send_deals(self):
+        print("sending deals")
+
         # get the posted deals
         self.posted_deals = await self.get_posted_deals()
         # get the deals from the website
@@ -155,9 +159,8 @@ class GGDeals(commands.Cog):
         # update the posted deals that have been sent across
         self.posted_deals = await self.get_posted_deals()
 
-    @tasks.loop(hours=1)
+    @tasks.loop(minutes=30)
     async def start_sending(self):
-
         await self.send_deals()
         await self.remove_outdated_deals()
 
