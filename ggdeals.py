@@ -82,7 +82,7 @@ class GGDeals(commands.Cog):
 
     async def get_posted_deals(self):
 
-        messages = await self.channel.history(limit=50).flatten()
+        messages = await self.channel.history(limit=200).flatten()
 
         #await self.channel.delete_messages(messages)
         # get the title of each embeds and the message id
