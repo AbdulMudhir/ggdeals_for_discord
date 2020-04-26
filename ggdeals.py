@@ -5,12 +5,20 @@ from discord.ext import tasks
 import discord, re
 from database import DataBase
 from reaction_page import Reactions
+import logging
+
+
 
 header = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'}
 
 bot = commands.Bot(command_prefix=".")
 
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
 class GGDeals(commands.Cog):
 
@@ -31,10 +39,10 @@ class GGDeals(commands.Cog):
 
 
     def deals(self):
+
         deals_found = {}
 
         for page_number in range(1, 3):
-
             ggdeals_best_deal = requests.get(f"https://gg.deals/deals/best-deals/?page={page_number}",
                                              headers=header).content
 
@@ -78,6 +86,8 @@ class GGDeals(commands.Cog):
                                       'percentage': percentage,
                                       'historical_low': historical}
 
+
+
         return deals_found
 
     async def get_posted_deals(self):
@@ -97,6 +107,7 @@ class GGDeals(commands.Cog):
         self.posted_deals = await self.get_posted_deals()
         # get the deals from the website
         self.current_deals = self.deals()
+
 
         server_wish_list = self.database.view_wish_list()
 
