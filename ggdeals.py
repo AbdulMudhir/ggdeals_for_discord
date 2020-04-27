@@ -34,7 +34,11 @@ class GGDeals(commands.Cog):
         print(f'We have logged in as {self.bot.user}\n')
         self.channel = self.bot.get_channel(702208238149435533)
         self.server_bot_channel = self.bot.get_channel(557662591942524930)
-        self.start_sending.start()
+
+        try:# if the task is already running just to ignore
+            self.start_sending.start()
+        except RuntimeError:
+            pass
 
 
 
