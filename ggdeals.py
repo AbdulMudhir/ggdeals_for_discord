@@ -7,8 +7,6 @@ from database import DataBase
 from reaction_page import Reactions
 import logging
 
-
-
 header = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'}
 
@@ -19,6 +17,7 @@ logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
+
 
 class GGDeals(commands.Cog):
 
@@ -35,12 +34,11 @@ class GGDeals(commands.Cog):
         self.channel = self.bot.get_channel(702208238149435533)
         self.server_bot_channel = self.bot.get_channel(557662591942524930)
 
-        try:# if the task is already running just to ignore
-            self.start_sending.start()
-        except RuntimeError:
-            pass
-
-
+        # try:# if the task is already running just to ignore
+        #     self.start_sending.start()
+        # except RuntimeError:
+        #     pass
+        #
 
     def deals(self):
 
@@ -90,15 +88,13 @@ class GGDeals(commands.Cog):
                                       'percentage': percentage,
                                       'historical_low': historical}
 
-
-
         return deals_found
 
     async def get_posted_deals(self):
 
         messages = await self.channel.history(limit=200).flatten()
 
-        #await self.channel.delete_messages(messages)
+        # await self.channel.delete_messages(messages)
         # get the title of each embeds and the message id
         posted_deals = {message.embeds.pop().title: message.id for message in messages}
 
@@ -111,7 +107,6 @@ class GGDeals(commands.Cog):
         self.posted_deals = await self.get_posted_deals()
         # get the deals from the website
         self.current_deals = self.deals()
-
 
         server_wish_list = self.database.view_wish_list()
 
@@ -338,6 +333,30 @@ class GGDeals(commands.Cog):
         game_name, current_price, game_picture, direct_link, historical, \
         genre, video_link = self.database.get_full_game_detail(game_title)
 
+        # replace the white space with a slash for searching
+        game_name_for_query_search = game_name.replace(" ", "-")
+        key_shop_deals = self.key_shop_prices(game_name_for_query_search)
+
+        key_shop_company_list = []
+        key_shop_company_price = []
+        key_shop_company_direct_link = []
+        key_shop_company_code = []
+
+
+        test_values = []
+
+
+        for key_shop_company, key_shop_values in key_shop_deals.items():
+            key_shop_company_list.append(key_shop_company)
+            key_shop_company_direct_link.append(key_shop_values[0])
+            key_shop_company_price.append(key_shop_values[1])
+            key_shop_company_code.append(key_shop_values[2])
+
+        key_shop_company_list = '\n'.join(key_shop_company_list)
+        key_shop_company_price = '\n'.join(key_shop_company_price)
+        key_shop_company_direct_link = '\n'.join(key_shop_company_direct_link)
+        key_shop_company_code = '\n'.join(key_shop_company_code)
+
         if current_price == "Free":
             price_formatted = current_price
             colour = 181488
@@ -351,7 +370,8 @@ class GGDeals(commands.Cog):
         embed = discord.Embed(
             title=game_name.title(),
             description=f"**Price:** {current_price}\n"
-                        f"**Genre:** {genre}\n",
+                        f"**Genre:** {genre}\n"
+                        f"**key Shop** \n{key_shop_company_list}",
             colour=colour,
             url=direct_link)
         embed.set_thumbnail(url=game_picture)
@@ -373,6 +393,7 @@ class GGDeals(commands.Cog):
         self.current_deals = ''
 
     def key_shop_prices(self, game_name):
+
         key_shop_page = requests.get(f"https://gg.deals/game/{game_name}/?tab=keyshops")
         soup = bs4(key_shop_page.content, "html.parser")
 
