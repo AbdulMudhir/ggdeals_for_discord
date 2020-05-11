@@ -371,6 +371,20 @@ class GGDeals(commands.Cog):
 
         # reset the deals found on gg.deals
         self.current_deals = ''
+    def key_shop_prices(self, game_name):
+
+        key_shop_page = requests.get(f"https://gg.deals/game/{game_name}/?tab=keyshops")
+        soup = bs4(key_shop_page.content, "html.parser")
+
+        first_deal = soup.find("a", _class="game-hoverable full-link")
+        deal_price = first_deal.find('span', _class="numeric")
+        direct_link = first_deal.find('a', _class="shop-link")
+
+
+
+
+
+
 
     @staticmethod
     def check_lazy_load(class_):
